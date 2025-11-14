@@ -2,8 +2,8 @@ package Controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+
 import Model.Menu;
 import Model.Order;
 
@@ -16,15 +16,24 @@ public class RestaurantController {
     }
 
     private void initDefaultMenu() {
-        daftarMenu.add(new Menu("Nasi Goreng", 25000, "Makanan"));
-        daftarMenu.add(new Menu("Mie Ayam", 20000, "Makanan"));
-        daftarMenu.add(new Menu("Ayam Geprek", 28000, "Makanan"));
-        daftarMenu.add(new Menu("Sate Ayam", 30000, "Makanan"));
+        Object[][] dataMenu = {
+            {"Nasi Goreng", 25000, "Makanan"},
+            {"Mie Ayam", 20000, "Makanan"},
+            {"Ayam Geprek", 28000, "Makanan"},
+            {"Sate Ayam", 30000, "Makanan"},
+            {"Es Teh", 8000, "Minuman"},
+            {"Jus Alpukat", 15000, "Minuman"},
+            {"Kopi Hitam", 12000, "Minuman"},
+            {"Air Mineral", 5000, "Minuman"}
+        };
 
-        daftarMenu.add(new Menu("Es Teh", 8000, "Minuman"));
-        daftarMenu.add(new Menu("Jus Alpukat", 15000, "Minuman"));
-        daftarMenu.add(new Menu("Kopi Hitam", 12000, "Minuman"));
-        daftarMenu.add(new Menu("Air Mineral", 5000, "Minuman"));
+        for (Object[] item : dataMenu) {
+            daftarMenu.add(new Menu(
+                (String) item[0],
+                (double) (int) item[1],  // harga
+                (String) item[2]         // kategori
+            ));
+        }
     }
 
     // Menu management
@@ -73,7 +82,7 @@ public class RestaurantController {
     public CalculationResult hitungDetailPembayaran() {
         double subtotal = hitungSubtotal();
         double pajak = subtotal * 0.10; // 10%
-        double service = 5000;
+        double service = 20000; // flat rate
         double diskon = 0;
 
         // Diskon 10% jika subtotal > 100000
